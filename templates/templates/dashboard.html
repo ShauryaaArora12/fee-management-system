@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="grid">
+    <div class="card">
+        <h3>Total Students</h3>
+        <p class="stat">{{ total_students }}</p>
+    </div>
+    <div class="card">
+        <h3>Total Fees Collected</h3>
+        <p class="stat">${{ total_paid }}</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Recent Payments</h3>
+    {% if recent_payments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in recent_payments %}
+                <tr>
+                    <td>{{ payment.student_name if payment.student_name else payment.name }}</td>
+                    <td>${{ payment.amount_paid }}</td>
+                    <td>{{ payment.payment_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No payments yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
